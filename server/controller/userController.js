@@ -4,7 +4,6 @@ import generateToken from "../utils/generateToken.js";
 
 ////////////////// User Login /////////////////////
 const authUser = asyncHandler(async (req, res) => {
-  console.log(req.body);
   const { penno, password } = req.body;
 
   const user = await userModel.findOne({ penno: penno });
@@ -25,6 +24,7 @@ const authUser = asyncHandler(async (req, res) => {
 
 ////////////////// Register User //////////////////////
 const registerUser = asyncHandler(async (req, res) => {
+  console.log(req.body);
   const { name, email, penno, password } = req.body;
 
   const userExist = await userModel.findOne({ penno: penno });
@@ -57,16 +57,47 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+/////////////// User Logout //////////////////////
 const logoutUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "Logout User " });
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.status(200).json({ message: "User Logged Out " });
 });
 
 const getUserProfile = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "User Profile " });
+  const user = {
+    _id: req.user._id,
+    name: req.user.name,
+    email: req.user.email,
+    penno: req.user.penno,
+  };
+  res.status(200).json(user);
 });
 
 const updateUserProfile = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "Update User Profile " });
+  const user = await userModel.findById(req.user._id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.penno = req.body.penno || user.penno;
+
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      penno: updatedUser.penno,
+    });
+  } else {
+    res.status(400);
+    throw new Error("No User Found");
+  }
 });
 export {
   authUser,

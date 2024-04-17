@@ -24,7 +24,6 @@ const authUser = asyncHandler(async (req, res) => {
 
 ////////////////// Register User //////////////////////
 const registerUser = asyncHandler(async (req, res) => {
-  console.log(req.body);
   const { name, email, penno, password } = req.body;
 
   const userExist = await userModel.findOne({ penno: penno });
@@ -66,6 +65,7 @@ const logoutUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "User Logged Out " });
 });
 
+/////////////// Get User Profile //////////////////////
 const getUserProfile = asyncHandler(async (req, res) => {
   const user = {
     _id: req.user._id,
@@ -76,6 +76,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
+/////////////// Update User Profile //////////////////////
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await userModel.findById(req.user._id);
   if (user) {

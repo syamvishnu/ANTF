@@ -1,6 +1,5 @@
 .dtable {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  margin: 50px;
+  padding: 50px;
   
 }

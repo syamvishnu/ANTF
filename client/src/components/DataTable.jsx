@@ -1,21 +1,57 @@
-import React from "react";
+import React, {useState} from "react";
 import Paper from "@mui/material/Paper";
 import DTable, { createTheme } from "react-data-table-component";
 import "./DataTable.css";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 function DataTable() {
+  const [page, setPage] = useState(1);
+
   const column = [
     {
-      name: "Name",
-      selector: (row) => row.name,
+      name: (
+        <h3>
+          <strong>#Name</strong>
+        </h3>
+      ),
+      selector: (row) => <strong>{row.name}</strong>,
     },
     {
-      name: "Email",
-      selector: (row) => row.email,
+      name: (
+        <h3>
+          <strong>#House Name</strong>
+        </h3>
+      ),
+      selector: (row) => <strong>{row.address}</strong>,
     },
     {
-      name: "Address",
-      selector: (row) => row.address,
+      name: (
+        <h3>
+          <strong>#Place</strong>
+        </h3>
+      ),
+      selector: (row) => <strong> {row.place}</strong>,
+    },
+    {
+      name: (
+        <h3>
+          <strong>#Aadhar</strong>
+        </h3>
+      ),
+      selector: (row) => <strong>{row.aadhar}</strong>,
+    },
+    {
+      name: (
+        <h3>
+          <strong>#Action</strong>
+        </h3>
+      ),
+      // cell: (row) => (
+      //   <Link style={{ color: "#5f6a6a" }} to={`/home/edit/${row._id}`}>
+      //     More
+      //   </Link>
+      // ),
     },
   ];
 
@@ -161,17 +197,31 @@ function DataTable() {
   );
 
   return (
-    <div className="dtable">
-      <Paper sx={{ width: "70%" }}>
-        <DTable
-          title="All Information List"
-          columns={column}
-          data={data}
-          // theme="solarized"
-          fixedHeader
-          pagination
-        ></DTable>
-      </Paper>
+    <div
+      className="dtable"
+      style={{
+        marginLeft: "50px",
+        marginRight: "50px",
+        border: "5px solid rgba(0, 0, 0, 0.05)",
+      }}
+    >
+      <h1>Case Files</h1>
+      <DTable
+        columns={column}
+        data={data}
+        // theme="solarized"
+        fixedHeader
+        highlightOnHover
+      ></DTable>
+      <Stack style={{ paddingTop: "20px", paddingBottom: "20px" }} spacing={2}>
+        <Pagination
+          count
+          showFirstButton
+          showLastButton
+          defaultPage={1}
+          onChange
+        />
+      </Stack>
     </div>
   );
 }

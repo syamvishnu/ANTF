@@ -1,6 +1,6 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
-import DTable from "react-data-table-component";
+import DTable, { createTheme } from "react-data-table-component";
 import "./DataTable.css";
 
 function DataTable() {
@@ -129,6 +129,37 @@ function DataTable() {
       address: "Fno. 20, ktm",
     },
   ];
+
+  createTheme(
+    "solarized",
+    {
+      text: {
+        primary: "#268bd2",
+        secondary: "#2aa198",
+      },
+      background: {
+        default: "#002b36",
+      },
+      context: {
+        background: "#cb4b16",
+        text: "#FFFFFF",
+      },
+      divider: {
+        default: "#073642",
+      },
+      button: {
+        default: "#2aa198",
+        hover: "rgba(0,0,0,.08)",
+        focus: "rgba(255,255,255,.12)",
+        disabled: "rgba(255, 255, 255, .34)",
+      },
+      sortFocus: {
+        default: "#2aa198",
+      },
+    },
+    "dark"
+  );
+
   return (
     <div className="dtable">
       <Paper sx={{ width: "70%" }}>
@@ -136,6 +167,7 @@ function DataTable() {
           title="All Information List"
           columns={column}
           data={data}
+          // theme="solarized"
           fixedHeader
           pagination
         ></DTable>

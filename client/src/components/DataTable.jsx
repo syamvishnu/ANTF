@@ -1,6 +1,15 @@
-import React, {useState} from "react";
-import Paper from "@mui/material/Paper";
-import DTable, { createTheme } from "react-data-table-component";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  TableRow,
+  TableHeaderCell,
+  TableHeader,
+  TableCell,
+  TableBody,
+  Header,
+  Table,
+  Rating,
+} from "semantic-ui-react";
 import "./DataTable.css";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
@@ -166,36 +175,6 @@ function DataTable() {
     },
   ];
 
-  createTheme(
-    "solarized",
-    {
-      text: {
-        primary: "#268bd2",
-        secondary: "#2aa198",
-      },
-      background: {
-        default: "#002b36",
-      },
-      context: {
-        background: "#cb4b16",
-        text: "#FFFFFF",
-      },
-      divider: {
-        default: "#073642",
-      },
-      button: {
-        default: "#2aa198",
-        hover: "rgba(0,0,0,.08)",
-        focus: "rgba(255,255,255,.12)",
-        disabled: "rgba(255, 255, 255, .34)",
-      },
-      sortFocus: {
-        default: "#2aa198",
-      },
-    },
-    "dark"
-  );
-
   return (
     <div
       className="dtable"
@@ -206,13 +185,41 @@ function DataTable() {
       }}
     >
       <h1>Case Files</h1>
-      <DTable
-        columns={column}
-        data={data}
-        // theme="solarized"
-        fixedHeader
-        highlightOnHover
-      ></DTable>
+      <Table celled padded >
+        <TableHeader textAlign="center">
+          <TableRow>
+            <TableHeaderCell singleLine>Case No</TableHeaderCell>
+            <TableHeaderCell>Name</TableHeaderCell>
+            <TableHeaderCell>Email</TableHeaderCell>
+            <TableHeaderCell singleLine>Phone Number</TableHeaderCell>
+            <TableHeaderCell>Address</TableHeaderCell>
+            <TableHeaderCell>Action</TableHeaderCell>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody >
+          <TableRow>
+            <TableCell textAlign="center" >
+                1
+            </TableCell>
+            <TableCell singleLine textAlign="center">Abhijith</TableCell>
+            <TableCell textAlign="center">
+              abhi@mail.com
+            </TableCell>
+            <TableCell singleLine textAlign="center">
+              +91 9999999999
+            </TableCell>
+            <TableCell>
+              Creatine supplementation is the reference compound for increasing
+              muscular creatine levels; there is variability in this increase,
+              however, with some nonresponders.
+            </TableCell>
+            <TableCell singleLine textAlign="center"><Link to={"/home"}>More</Link></TableCell>
+
+          </TableRow>
+          
+        </TableBody>
+      </Table>
       <Stack style={{ paddingTop: "20px", paddingBottom: "20px" }} spacing={2}>
         <Pagination
           count

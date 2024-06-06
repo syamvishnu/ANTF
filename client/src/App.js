@@ -8,6 +8,8 @@ import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRoute from "./components/privateRoute";
+import Recordpage from "./pages/Recordpage";
+import Entrypage from "./pages/Entrypage";
 function App() {
   return (
     <div className="App">
@@ -16,6 +18,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="" element={<PrivateRoute />}>
           <Route path="/home" element={<Homepage />} />
+          <Route path="/records" element={<Recordpage />} />
+          <Route path="/entry" element={<Entrypage />} />
+
         </Route>
       </Routes>
     </div>

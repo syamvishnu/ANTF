@@ -1,0 +1,14 @@
+.bulk {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -235px;
+}
+
+.bulk2{
+    display:flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+
+}

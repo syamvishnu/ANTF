@@ -4,7 +4,9 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Box from "@mui/material/Box";
+import SendIcon from "@mui/icons-material/Send";
 import "./Bulkupload.css";
+import Stack from "@mui/material/Stack";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -25,16 +27,20 @@ function Bulkupload() {
       <h1 className="bulk2"> Please Upload Excel file (.xlsx)</h1>
       <div className="bulk">
         <Box component="section" sx={{ p: 2, border: "1px dashed grey" }}>
-          <Button
-            component="label"
-            role={undefined}
-            variant="contained"
-            tabIndex={-1}
-            startIcon={<CloudUploadIcon />}
-          >
-            Upload file
-            <VisuallyHiddenInput type="file" />
-          </Button>
+          <Stack direction="row" spacing={2}>
+            <Button
+              component="label"
+              role={undefined}
+              variant="outlined"
+              tabIndex={-1}
+              startIcon={<CloudUploadIcon />}
+            >
+              Select File <VisuallyHiddenInput type="file" />
+            </Button>
+            <Button variant="contained" endIcon={<SendIcon />}>
+              Upload
+            </Button>
+          </Stack>
         </Box>
       </div>
     </div>

@@ -118,7 +118,7 @@ function Entrypage() {
                 tabIndex={-1}
                 startIcon={<CloudUploadIcon />}
               >
-                Upload Photo
+                Select Photo
                 <VisuallyHiddenInput type="file" />
               </Button>
             </Stack>

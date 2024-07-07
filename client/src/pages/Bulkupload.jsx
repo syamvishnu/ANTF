@@ -29,6 +29,7 @@ function Bulkupload() {
         <Box component="section" sx={{ p: 2, border: "1px dashed grey" }}>
           <Stack direction="row" spacing={2}>
             <Button
+              style={{ width: "250px", height: "50px" }}
               component="label"
               role={undefined}
               variant="outlined"
@@ -37,7 +38,11 @@ function Bulkupload() {
             >
               Select File <VisuallyHiddenInput type="file" />
             </Button>
-            <Button variant="contained" endIcon={<SendIcon />}>
+            <Button
+              style={{ width: "250px", height: "50px" }}
+              variant="contained"
+              endIcon={<SendIcon />}
+            >
               Upload
             </Button>
           </Stack>

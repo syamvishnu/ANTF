@@ -9,6 +9,7 @@ import PrivateRoute from "./components/privateRoute";
 import Recordpage from "./pages/Recordpage";
 import Entrypage from "./pages/Entrypage";
 import Bulkupload from "./pages/Bulkupload";
+import RecordResult from "./pages/RecordResult";
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ function App() {
           <Route path="/records" element={<Recordpage />} />
           <Route path="/entry" element={<Entrypage />} />
           <Route path="/bulk" element={<Bulkupload />} />
+          <Route path="/rout" element={<RecordResult />} />
         </Route>
       </Routes>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   TableRow,
@@ -30,84 +30,31 @@ const style = {
 };
 
 function DataTable() {
-  const [page, setPage] = useState(1);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const data = [
-    {
-      id: 1,
-      name: "syam",
-      email: "ss@email.com",
-      address: "Fno. 10, EKM",
-      mob: "9999999999",
-    },
-    {
-      id: 2,
-      name: "vishnu ",
-      email: "vv@email.com",
-      address: "Fno. 20, ktm",
-      mob: "9999999999",
-    },
-    {
-      id: 1,
-      name: "syam",
-      email: "ss@email.com",
-      address: "Fno. 10, EKM",
-      mob: "9999999999",
-    },
-    {
-      id: 2,
-      name: "vishnu ",
-      email: "vv@email.com",
-      address: "Fno. 20, ktm",
-      mob: "9999999999",
-    },
-    {
-      id: 1,
-      name: "syam",
-      email: "ss@email.com",
-      address: "Fno. 10, EKM",
-      mob: "9999999999",
-    },
-    {
-      id: 2,
-      name: "vishnu ",
-      email: "vv@email.com",
-      address: "Fno. 20, ktm",
-      mob: "9999999999",
-    },
-    {
-      id: 1,
-      name: "syam",
-      email: "ss@email.com",
-      address: "Fno. 10, EKM",
-      mob: "9999999999",
-    },
-    {
-      id: 2,
-      name: "vishnu ",
-      email: "vv@email.com",
-      address: "Fno. 20, ktm",
-      mob: "9999999999",
-    },
-    {
-      id: 1,
-      name: "syam",
-      email: "ss@email.com",
-      address: "Fno. 10, EKM",
-      mob: "9999999999",
-    },
-    {
-      id: 2,
-      name: "vishnu ",
-      email: "vv@email.com",
-      address: "Fno. 20, ktm",
-      mob: "9999999999",
-    },
-  ];
+  const [datas, setData] = useState([]);
+  const [page, setPage] = useState(2);
+  const [totalPages, setTotalPages] = useState(0); // For pagination calculation
+
+  const fetchData = async () => {
+    const response = await fetch(`http://localhost:8000/data/home?page=${page}`);
+    const data = await response.json();
+    setData(data); // Assuming the data is returned in a specific format (adjust based on your API)
+    setTotalPages(data.totalPages); // Assuming the server sends the total number of pages
+    console.log(data.data)
+  };
+
+  
+
+  useEffect(() => {
+    fetchData();
+  }, [page]);
+ 
+
+
 
   return (
     <div
@@ -130,50 +77,52 @@ function DataTable() {
             <TableHeaderCell>Action</TableHeaderCell>
           </TableRow>
         </TableHeader>
-        {data.map((row) => {
-          return (
-            <TableBody>
-              <TableRow>
-                <TableCell textAlign="center">1</TableCell>
-                <TableCell singleLine textAlign="center">
-                  {row.name}
-                </TableCell>
-                <TableCell textAlign="center">abhi@mail.com</TableCell>
-                <TableCell singleLine textAlign="center">
-                  {row.mob}
-                </TableCell>
-                <TableCell>{row.address}</TableCell>
-                <TableCell singleLine textAlign="center">
-                  <div>
-                    <Button onClick={handleOpen}>More Details</Button>
-                    <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <More />
-                    </Modal>
-                  </div>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          );
-        })}
+        {datas.data
+          ? datas.data.map((row) => {
+              return (
+                <TableBody>
+                  <TableRow>
+                    <TableCell textAlign="center">1</TableCell>
+                    <TableCell singleLine textAlign="center">
+                      {row.name}
+                    </TableCell>
+                    <TableCell textAlign="center">{row.email}m</TableCell>
+                    <TableCell singleLine textAlign="center">
+                      {row.contact}
+                    </TableCell>
+                    <TableCell>{row.address}</TableCell>
+                    <TableCell singleLine textAlign="center">
+                      <div>
+                        <Button onClick={handleOpen}>More Details</Button>
+                        <Modal
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="modal-modal-title"
+                          aria-describedby="modal-modal-description"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <More />
+                        </Modal>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              );
+            })
+          : null}
       </Table>
 
       <Stack style={{ paddingTop: "20px", paddingBottom: "20px" }} spacing={2}>
         <Pagination
-          count
+          count={totalPages}
           showFirstButton
           showLastButton
           defaultPage={1}
-          onChange
+          onChange={(e, value) => setPage(value)}
         />
       </Stack>
     </div>

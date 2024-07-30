@@ -11,7 +11,7 @@ import Stack from "@mui/material/Stack";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 import SendIcon from "@mui/icons-material/Send";
-import { addData } from "../features/auth/dataSlice";
+import { addData } from "../features/data/dataSlice";
 import Alert from "@mui/material/Alert";
 
 function convertBase64(file) {

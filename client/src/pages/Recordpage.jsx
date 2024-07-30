@@ -7,8 +7,21 @@ import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
+import { useDispatch, useSelector } from "react-redux";
+import { searchData } from "../features/data/dataSlice";
+import { useNavigate  } from "react-router-dom";
+import DataTable from "../components/DataTable";
+
 
 function Recordpage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { data, message, isError, isSuccess, isLoading } = useSelector(
+    (state) => state.data
+  );
+
+
+
   const [inputDetails, setInputDetails] = useState({
     name: "",
     father: "",
@@ -28,8 +41,9 @@ function Recordpage() {
     });
   };
 
-  const handleSubmit = () => {
-    console.log(inputDetails);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(searchData(inputDetails))
 
     setInputDetails({
       name: "",
@@ -39,7 +53,11 @@ function Recordpage() {
       address: "",
       email: "",
     });
+
+    navigate('/rout');
   };
+  console.log(data)
+  console.log(isError)
 
   return (
     <div style={{ marginTop: "90px", padding: "20px", paddingTop: "30px" }}>

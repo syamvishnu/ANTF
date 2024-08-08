@@ -62,4 +62,61 @@ const addData = asyncHandler(async (req, res) => {
   }
 });
 
-export { addData };
+const updateData = async (req, res) => {
+  const {
+    sdiv,
+    pstn,
+    crno,
+    firdate,
+    name,
+    father,
+    spouse,
+    idno,
+    contact,
+    email,
+    address,
+    photo,
+    id, // Ensure id is included in the request body
+  } = req.body;
+
+  console.log(id)
+
+
+  try {
+    if (!id) {
+      return res.status(400).send({ message: "ID is required" });
+    }
+
+    const updateFields = {
+      ...(sdiv && { sdiv }),
+      ...(pstn && { pstn }),
+      ...(crno && { crno }),
+      ...(firdate && { firdate }),
+      ...(name && { name }),
+      ...(father && { father }),
+      ...(spouse && { spouse }),
+      ...(idno && { idno }),
+      ...(contact && { contact }),
+      ...(email && { email }),
+      ...(address && { address }),
+      ...(photo && { photo }),
+    };
+
+    const data = await dataModel.updateOne({ _id: id }, { $set: updateFields });
+
+    console.log(data)
+
+    if (data.nModified === 0) {
+      return res
+        .status(404)
+        .send({ message: "No document found with this ID" });
+    }
+
+    res.send({ status: 200, message: "Data Updated Successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error, message: "Error updating data" });
+  }
+};
+
+export { addData, updateData };

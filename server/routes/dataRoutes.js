@@ -1,11 +1,15 @@
 import express from "express";
-import { addData } from "../controller/entryController.js";
+import { addData, updateData } from "../controller/entryController.js";
 import { searchData } from "../controller/searchController.js";
-import { getHome } from "../controller/HomeController.js";
+import { getHome, moreData } from "../controller/HomeController.js";
+import { deleteRecords } from "../controller/DeleteDataController.js";
 
 const router = express.Router();
 +router.post("/", addData);
 router.post("/records", searchData);
-router.get("/home", getHome);
+router.route("/home").get(getHome).post(moreData);
+router.post("/delete", deleteRecords);
+router.post("/edit", updateData);
+
 
 export default router;

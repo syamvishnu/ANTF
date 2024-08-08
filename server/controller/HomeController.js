@@ -1,7 +1,7 @@
 import dataModel from "../model/dataModel.js";
 
 const getHome = async (req, res) => {
-  var perPage = 10;
+  var perPage = 7;
   var total = await dataModel.countDocuments();
   var pages = Math.ceil(total / perPage);
   var pageNumber = req.query.page == null ? 1 : req.query.page;
@@ -15,4 +15,14 @@ const getHome = async (req, res) => {
   res.send({ data: data1, total: total, lastpage: pages });
 };
 
-export { getHome };
+const moreData = async (req, res) => {
+  const { id } = req.body;
+  console.log(req.body)
+  var data1 = await dataModel.find({ _id: id });
+  console.log("test");
+  res.send({ data: data1 });
+};
+
+
+
+export { getHome, moreData};

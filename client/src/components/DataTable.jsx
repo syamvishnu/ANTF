@@ -35,7 +35,7 @@ function DataTable() {
   const handleClose = () => setOpen(false);
 
   const [datas, setData] = useState([]);
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0); // For pagination calculation
 
   const fetchData = async () => {

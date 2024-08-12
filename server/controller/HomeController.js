@@ -1,7 +1,7 @@
 import dataModel from "../model/dataModel.js";
 
 const getHome = async (req, res) => {
-  var perPage = 7;
+  var perPage = 6;
   var total = await dataModel.countDocuments();
   var pages = Math.ceil(total / perPage);
   var pageNumber = req.query.page == null ? 1 : req.query.page;

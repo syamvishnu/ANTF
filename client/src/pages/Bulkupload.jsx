@@ -27,6 +27,7 @@ const VisuallyHiddenInput = styled("input")({
 function Bulkupload() {
   const [excelData, setExcelData] = useState([]);
   const dispatch = useDispatch();
+  var duplicates = [];
 
   const { data, message, isError, isSuccess, isLoading } = useSelector(
     (state) => state.data
@@ -64,29 +65,19 @@ function Bulkupload() {
         email: val.email,
         address: val.address,
       };
-      console.log(newData)
-      console.log(newData.idno)
 
       dispatch(addData(newData));
     });
   };
 
-
-
+  console.log(data);
 
   return (
     <div>
       <Header />
-      <Stack sx={{ width: "100%", paddingTop:"70px" }} spacing={2}>
-        {isSuccess == true ? (
-          <Alert variant="filled" severity="success">
-            Successfully Added
-          </Alert>
-        ) : null}
-        {isError == true ? (
-          <Alert variant="filled" severity="error">
-            {message}
-          </Alert>
+      <Stack sx={{ width: "100%", paddingTop: "70px" }} spacing={2}>
+        {isSuccess == true || isError == true ? (
+          <Alert variant="filled" severity="success" />
         ) : null}
       </Stack>
       <h1 className="bulk2"> Please Upload Excel file (.xlsx)</h1>

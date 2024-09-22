@@ -27,10 +27,14 @@ const addData = asyncHandler(async (req, res) => {
 
     // Check if contact number already exists
     const existingData = await dataModel.findOne({ contact });
+    const duplicates = [];
+
     if (existingData) {
-      return res.status(500).json({
+      duplicates.push(existingData);
+      return res.status(500).send({
+        data: [duplicates],
         message: "Contact Number already exists",
-        data: [existingData],
+        
       });
     }
 
@@ -79,8 +83,7 @@ const updateData = async (req, res) => {
     id, // Ensure id is included in the request body
   } = req.body;
 
-  console.log(id)
-
+  console.log(id);
 
   try {
     if (!id) {
@@ -104,7 +107,7 @@ const updateData = async (req, res) => {
 
     const data = await dataModel.updateOne({ _id: id }, { $set: updateFields });
 
-    console.log(data)
+    console.log(data);
 
     if (data.nModified === 0) {
       return res

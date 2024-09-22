@@ -16,7 +16,7 @@ export const addData = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await axios.post("http://localhost:8000/data", data);
-      console.log(response.data);
+      console.log('Response:', response.data);
       return response.data;
     } catch (error) {
       const message =
@@ -85,7 +85,6 @@ const dataSlice = createSlice({
       })
       .addCase(addData.rejected, (state, action) => {
         state.isLoading = false;
-        state.data = null;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.payload;
